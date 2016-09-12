@@ -1,6 +1,7 @@
 ///---User configurable stuff---///
 ///---Modifiers---///
 #define MOD             XCB_MOD_MASK_4       /* Super/Windows key  or check xmodmap(1) with -pm  defined in /usr/include/xcb/xproto.h */
+#include <X11/XF86keysym.h>
 ///--Speed---///
 /* Move this many pixels when moving or resizing with keyboard unless the window has hints saying otherwise.
  *0)move step slow   1)move step fast
@@ -19,7 +20,7 @@ static const uint8_t offsets[] = {0,0,0,0};
  *2)fixedcol         3)unkilcol
  *4)fixedunkilcol    5)outerbordercol
  *6)emptycol         */
-static const char *colors[] = {"#35586c","#333333","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
+static const char *colors[] = {"#d65d0e","#928374","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
 /*
  * If you are using a composition manager enable the COMPTON flag in the Makefile
  * (By changing -DNCOMPTON to -DCOMPTON)
@@ -41,12 +42,24 @@ static const uint8_t borders[] = {3,5,5,4};
 #define LOOK_INTO "WM_NAME"
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
-static const char *menucmd[]   = { "/usr/bin/gmrun", NULL };
+static const char *dmenu[]   = { "dmenu_run", "-fn", "#928374", "-nb", "#1d2021", "-nf", "#928374", "-sb", "#282828", "-sf", "#d65d0e", "-x", "400", "-y", "372", "-w", "566", NULL };
 static const char *gmrun[]     = { "/usr/bin/gmrun",NULL};
 static const char *terminal[]  = { "urxvt", NULL };
+static const char *browser[]  = { "firefox", NULL };
 static const char *click1[]    = { "xdotool","click", "1", NULL };
 static const char *click2[]    = { "xdotool","click", "2", NULL };
 static const char *click3[]    = { "xdotool","click", "3", NULL };
+
+static const char *mpd_curr[]  = { "notif", "mpd_current", NULL };
+static const char *volUp[]  = { "amixer", "sset", "Master", "5%+", NULL };
+static const char *volDown[]  = { "amixer", "sset", "Master", "5%-", NULL };
+static const char *next[]  = { "mpc", "next", NULL };
+static const char *prev[]  = { "mpc", "prev", NULL };
+static const char *mute[]  = { "amixer", "set", "Master", "toggle", NULL };
+static const char *play[]  = { "mpc", "toggle", NULL };
+static const char *lightUp[]  = { "xbacklight", "-inc", "5",  NULL };
+static const char *lightDown[]  = { "xbacklight", "-dec", "5",  NULL };
+
 /* Example
 static const char *vol_up[]    = { "amixer", "set", "Master", "unmute", "3%+", "-q", NULL };
 static const char *vol_down[]  = { "amixer", "set", "Master", "unmute", "3%-", "-q", NULL };
@@ -190,7 +203,8 @@ static key keys[] = {
     {  MOD |SHIFT,        XK_Left,       cursor_move,       {.i=TWOBWM_CURSOR_LEFT}},
     // Start programs
     {  MOD ,              XK_Return,     start,             {.com = terminal}},
-    {  MOD ,              XK_w,          start,             {.com = menucmd}},
+    {  MOD ,              XK_e,     start,             {.com = browser}},
+    {  MOD ,              XK_w,          start,             {.com = dmenu}},
     {  MOD |SHIFT,        XK_w,          start,             {.com = gmrun}},
     // Exit or restart 2bwm
     {  MOD |CONTROL,      XK_q,          twobwm_exit,       {.i=0}},
@@ -200,6 +214,15 @@ static key keys[] = {
     {  MOD |CONTROL,      XK_Up,         start,             {.com = click1}},
     {  MOD |CONTROL,      XK_Down,       start,             {.com = click2}},
 	{  MOD |CONTROL,      XK_Right,      start,             {.com = click3}},
+    // Media Keys
+    {  0 ,              XF86XK_AudioPrev,     start,             {.com = prev}},
+    {  0 ,              XF86XK_AudioPlay,     start,             {.com = play}},
+    {  0 ,              XF86XK_AudioNext,     start,             {.com = next}},
+    {  0 ,              XF86XK_AudioMute,     start,             {.com = mute}},
+    {  0 ,              XF86XK_AudioLowerVolume,     start,             {.com = volDown}},
+    {  0 ,              XF86XK_AudioRaiseVolume,     start,             {.com = volUp}},
+    {  0 ,              XF86XK_MonBrightnessUp,     start,             {.com = lightUp}},
+    {  0 ,              XF86XK_MonBrightnessDown,     start,             {.com = lightDown}},
 /* example
     {  0x000000,          0x1008ff13, start,             {.com = vol_up}},
     {  0x000000,          0x1008ff11,  start,             {.com = vol_down}},
@@ -222,7 +245,7 @@ static key keys[] = {
 static Button buttons[] = {
     {  MOD        ,XCB_BUTTON_INDEX_1,     mousemotion,   {.i=TWOBWM_MOVE}},
     {  MOD        ,XCB_BUTTON_INDEX_3,     mousemotion,   {.i=TWOBWM_RESIZE}},
-    {  MOD|CONTROL,XCB_BUTTON_INDEX_3,     start,         {.com = menucmd}},
+    {  MOD|CONTROL,XCB_BUTTON_INDEX_3,     start,         {.com = dmenu}},
     {  MOD|SHIFT,  XCB_BUTTON_INDEX_1,     changeworkspace, {.i=0}},
     {  MOD|SHIFT,  XCB_BUTTON_INDEX_3,     changeworkspace, {.i=1}},
     {  MOD|ALT,    XCB_BUTTON_INDEX_1,     changescreen,    {.i=1}},
