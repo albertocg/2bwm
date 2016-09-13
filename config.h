@@ -51,8 +51,12 @@ static const char *click2[]    = { "xdotool","click", "2", NULL };
 static const char *click3[]    = { "xdotool","click", "3", NULL };
 
 static const char *mpd_curr[]  = { "notif", "mpd_current", NULL };
-static const char *volUp[]  = { "amixer", "sset", "Master", "5%+", NULL };
-static const char *volDown[]  = { "amixer", "sset", "Master", "5%-", NULL };
+static const char *notif_info[]  = { "notif", "info", NULL };
+// static const char *notif_vol[]  = { "notif", "volume", NULL };
+// static const char *notif_date[]  = { "notif", "date", NULL };
+// static const char *notif_bat[]  = { "battery_check", NULL };
+static const char *volUp[]  = { "amixer", "sset", "Master", "5%+", "&&", "notif", "volume", NULL };
+static const char *volDown[]  = { "amixer", "sset", "Master", "5%-", "&&", "notif", "volume", NULL };
 static const char *next[]  = { "mpc", "next", NULL };
 static const char *prev[]  = { "mpc", "prev", NULL };
 static const char *mute[]  = { "amixer", "set", "Master", "toggle", NULL };
@@ -223,6 +227,16 @@ static key keys[] = {
     {  0 ,              XF86XK_AudioRaiseVolume,     start,             {.com = volUp}},
     {  0 ,              XF86XK_MonBrightnessUp,     start,             {.com = lightUp}},
     {  0 ,              XF86XK_MonBrightnessDown,     start,             {.com = lightDown}},
+
+
+// Notifications
+
+
+    {  MOD |SHIFT,              XK_p,          start,             {.com = mpd_curr}},
+    {  MOD ,              XK_p,          start,             {.com = notif_info}},
+    // {  MOD ,              XK_m,          start,             {.com = notif_date}},
+    // {  MOD |SHIFT,      XK_p,       start,             {.com = notif_vol}},
+    // {  MOD |SHIFT,      XK_m,       start,             {.com = notif_bat}},
 /* example
     {  0x000000,          0x1008ff13, start,             {.com = vol_up}},
     {  0x000000,          0x1008ff11,  start,             {.com = vol_down}},
