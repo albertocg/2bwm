@@ -20,7 +20,7 @@ static const uint8_t offsets[] = {0,0,0,0};
  *2)fixedcol         3)unkilcol
  *4)fixedunkilcol    5)outerbordercol
  *6)emptycol         */
-static const char *colors[] = {"#d65d0e","#928374","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
+static const char *colors[] = {"#ffffff","#050505","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
 /*
  * If you are using a composition manager enable the COMPTON flag in the Makefile
  * (By changing -DNCOMPTON to -DCOMPTON)
@@ -42,7 +42,7 @@ static const uint8_t borders[] = {3,5,5,4};
 #define LOOK_INTO "WM_NAME"
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
-static const char *dmenu[]   = { "dmenu_run", "-fn", "#928374", "-nb", "#1d2021", "-nf", "#928374", "-sb", "#282828", "-sf", "#d65d0e", "-x", "400", "-y", "372", "-w", "566", NULL };
+static const char *dmenu[]   = { "dmenu_run", "-fn", "#928374", "-nb", "#050505", "-nf", "#D4CDCD", "-sb", "#1C1B19", "-sf", "#ffffff", NULL };
 static const char *gmrun[]     = { "/usr/bin/gmrun",NULL};
 static const char *terminal[]  = { "urxvt", NULL };
 static const char *browser[]  = { "firefox", NULL };
