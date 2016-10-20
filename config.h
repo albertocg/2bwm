@@ -20,13 +20,13 @@ static const uint8_t offsets[] = {0,0,0,0};
  *2)fixedcol         3)unkilcol
  *4)fixedunkilcol    5)outerbordercol
  *6)emptycol         */
-static const char *colors[] = {"#ffffff","#050505","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
+static const char *colors[] = {"#111111","#CCCCCC","#7a8c5c","#ff6666","#cc9933","#EEEEEE","#000000"};
 /*
  * If you are using a composition manager enable the COMPTON flag in the Makefile
  * (By changing -DNCOMPTON to -DCOMPTON)
  */
 /* if this is set to true the inner border and outer borders colors will be swapped */
-static const bool inverted_colors = true;
+static const bool inverted_colors = false;
 ///---Cursor---///
 /* default position of the cursor:
  * correct values are:
@@ -37,15 +37,18 @@ static const bool inverted_colors = true;
 /*0) Outer border size. If you put this negative it will be a square.
  *1) Full borderwidth    2) Magnet border size
  *3) Resize border size  */
-static const uint8_t borders[] = {3,5,5,4};
+static const uint8_t borders[] = {4,6,3,5};
 /* Windows that won't have a border.*/
 #define LOOK_INTO "WM_NAME"
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
-static const char *dmenu[]   = { "dmenu_run", "-fn", "#928374", "-nb", "#050505", "-nf", "#D4CDCD", "-sb", "#1C1B19", "-sf", "#ffffff", NULL };
+static const char *dmenu[]   = { "dmenu_run", "-fn", "#928374", "-nb", "#EEEEEE", "-nf", "#111111", "-sb", "#CCCCCC", "-sf", "#C0392B", NULL };
 static const char *gmrun[]     = { "/usr/bin/gmrun",NULL};
+static const char *listen[]     = { "listen",NULL};
 static const char *terminal[]  = { "urxvt", NULL };
 static const char *browser[]  = { "firefox", NULL };
+static const char *surf_uri[]  = { "surf_uri", NULL };
+static const char *urlshare[]  = { "urlshare", NULL };
 static const char *click1[]    = { "xdotool","click", "1", NULL };
 static const char *click2[]    = { "xdotool","click", "2", NULL };
 static const char *click3[]    = { "xdotool","click", "3", NULL };
@@ -208,6 +211,8 @@ static key keys[] = {
     // Start programs
     {  MOD ,              XK_Return,     start,             {.com = terminal}},
     {  MOD ,              XK_e,     start,             {.com = browser}},
+    {  MOD |SHIFT ,              XK_e,     start,             {.com = surf_uri}},
+    {  MOD |CONTROL ,              XK_e,     start,             {.com = urlshare}},
     {  MOD ,              XK_w,          start,             {.com = dmenu}},
     {  MOD |SHIFT,        XK_w,          start,             {.com = gmrun}},
     // Exit or restart 2bwm
@@ -234,7 +239,7 @@ static key keys[] = {
 
     {  MOD |SHIFT,              XK_p,          start,             {.com = mpd_curr}},
     {  MOD ,              XK_p,          start,             {.com = notif_info}},
-    // {  MOD ,              XK_m,          start,             {.com = notif_date}},
+    {  MOD ,              XK_o,          start,             {.com = listen}},
     // {  MOD |SHIFT,      XK_p,       start,             {.com = notif_vol}},
     // {  MOD |SHIFT,      XK_m,       start,             {.com = notif_bat}},
 /* example
